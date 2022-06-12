@@ -1,6 +1,8 @@
 package main;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
     /**
      * Position of the player.
@@ -42,17 +44,17 @@ public class Player {
         switch (player_class) {
             case WARRIOR -> {
                 this.maxHP = 30;
-                this.dmg = 3;
+                this.dmg = 4;
                 this.sight_range = 1;
             }
             case ARCHER -> {
                 this.maxHP = 25;
-                this.dmg = 2;
+                this.dmg = 3;
                 this.sight_range = 2;
             }
             case THIEF -> {
                 this.maxHP = 20;
-                this.dmg = 2;
+                this.dmg = 3;
                 this.sight_range = 1;
             }
         }

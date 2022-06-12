@@ -2,7 +2,7 @@ package main;
 
 import java.io.Serializable;
 
-public class Tile implements Serializable{
+public class Tile implements Serializable {
 
     enum Type{
         TRAP,

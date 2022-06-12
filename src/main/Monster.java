@@ -2,15 +2,17 @@ package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Monster extends Tile{
+public class Monster extends Tile {
 
     /**
      * Monster types
      */
     enum MType {
+        BLANK,
         SLIME,
         SPIDER,
-        GOBLIN
+        GOBLIN,
+        BOSS
     }
 
     private boolean dead;
@@ -24,23 +26,29 @@ public class Monster extends Tile{
      * Creates a random monster tile from a selection of three monters.
      * Assigns HP and DMG accordingly.
      */
-    public Monster() {
+    public Monster(MType mtype) {
         super(Type.MONSTER);
-        switch (ThreadLocalRandom.current().nextInt(1, 4)) {
-            case 1 -> {
-                this.monster_type = MType.SPIDER;
-                this.hp = 7;
-                this.dmg = 5;
-            }
-            case 2 -> {
-                this.monster_type = MType.SLIME;
-                this.hp = 11;
-                this.dmg = 3;
-            }
-            case 3 -> {
-                this.monster_type = MType.GOBLIN;
-                this.hp = 20;
-                this.dmg = 2;
+        if (mtype == MType.BOSS) {
+            this.monster_type = MType.BOSS;
+            this.hp = 20;
+            this.dmg = 5;
+        } else {
+            switch (ThreadLocalRandom.current().nextInt(1, 4)) {
+                case 1 -> {
+                    this.monster_type = MType.SPIDER;
+                    this.hp = 7;
+                    this.dmg = 5;
+                }
+                case 2 -> {
+                    this.monster_type = MType.SLIME;
+                    this.hp = 11;
+                    this.dmg = 3;
+                }
+                case 3 -> {
+                    this.monster_type = MType.GOBLIN;
+                    this.hp = 16;
+                    this.dmg = 2;
+                }
             }
         }
         this.dead = false;
@@ -59,7 +67,7 @@ public class Monster extends Tile{
             return;
         }
         Battle b = new Battle();
-        b.battle(player, this, !hidden);
+        b.battle(player, this, hidden);
         this.hidden = true;
     }
 

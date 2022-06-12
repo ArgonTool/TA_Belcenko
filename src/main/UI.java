@@ -1,6 +1,6 @@
 package main;
 
-import java.io.File;
+import java.io.*;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -10,22 +10,26 @@ public class UI {
     private MyMap map;
     private Player player;
     private boolean end;
+    private File saveFile;
 
     public UI() {
         this.end = false;
+        this.saveFile = new File("./src/saved_files/gameSave");
     }
 
     public String read() {
+        String out;
         System.out.print("> ");
         Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
+        out = sc.nextLine();
+        return out;
     }
 
     public void start(){
         boolean dead = false;
         boolean success = false;
         System.out.println("Welcome to the Maze");
-        if (checkSaves()) {
+        if (saveFile.exists()) {
             System.out.println("NEW  |  LOAD");
             String s = read();
             if(s.toLowerCase(Locale.ENGLISH).equals("load")) {
@@ -40,6 +44,7 @@ public class UI {
         map.render(player);
 
         while (!end){
+            System.out.println("move(up/down/left/right), stats, save, exit");
             String in = read();
             game.handleCommand(in);
             map.getTile(player.getPosX(), player.getPosY()).activate(player);
@@ -54,23 +59,12 @@ public class UI {
             }
         }
         if (dead) {
-            System.out.println("You have died\nRESTART (Y/N)?");
-            String s = read();
-            if (s.toLowerCase(Locale.ENGLISH).equals("y") || s.toLowerCase(Locale.ENGLISH).equals("yes")) {
-                end = false;
-                start();
-            } else if (s.toLowerCase(Locale.ENGLISH).equals("n") || s.toLowerCase(Locale.ENGLISH).equals("no")) {
-                System.out.println("Goodbye");
-                return;
-            } else {
-                System.out.println("Interpreting vague answer as NO");
-                System.out.println("Goodbye");
-            }
-        }
-        if (success) {
+            System.out.println("You have died");
+        } else if (success) {
             System.out.println("Congratulations, you've cleared the maze");
+        } else {
+            System.out.println("This should be impossible to reach");
         }
-
     }
 
     private void newGame() {
@@ -115,19 +109,30 @@ public class UI {
 
         ICommand move = new CommandMove(player, map);
         ICommand stats = new CommandStats(player);
+        ICommand save = new CommandSave(game, player, map);
+        ICommand exit = new CommandExit();
 
         game.addCommand(move);
         game.addCommand(stats);
+        game.addCommand(save);
+        game.addCommand(exit);
 
         map.reveal(player);
     }
 
-    public boolean checkSaves(){
-        File f = new File("./src/saved_files/psave.txt");
-        return f.exists();
-    }
-
     private void loadGame() {
-
+        try {
+            FileInputStream fis = new FileInputStream(saveFile);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Save save = (Save) ois.readObject();
+            ois.close();
+            fis.close();
+            this.map = save.getMap();
+            this.player = save.getPlayer();
+            this.game = save.getGame();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            end = true;
+        }
     }
 }

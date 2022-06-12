@@ -3,7 +3,7 @@ package main;
 import java.io.*;
 import java.util.Scanner;
 
-public class MyMap implements Serializable{
+public class MyMap implements Serializable {
 
     private Tile[][] arr;
 
@@ -36,7 +36,7 @@ public class MyMap implements Serializable{
                     case 1 -> arr[i][j] = new Tile(Tile.Type.NOTHING);
                     case 2 -> arr[i][j] = new Potion();
                     case 3 -> arr[i][j] = new Trap();
-                    case 4 -> arr[i][j] = new Monster();
+                    case 4 -> arr[i][j] = new Monster(Monster.MType.BLANK);
                     case 5 -> {
                         arr[i][j] = new Tile(Tile.Type.EXIT);
                         exit = true;
@@ -45,7 +45,7 @@ public class MyMap implements Serializable{
                         arr[i][j] = new Tile(Tile.Type.ENTRANCE);
                         entrance = true;
                     }
-                    case 7 -> arr[i][j] = new Tile(Tile.Type.BOSS_MONSTER);
+                    case 7 -> arr[i][j] = new Monster(Monster.MType.BOSS);
                     default -> throw new Exception("Problem with map file, found char:" + chars[j]);
                 }
             }

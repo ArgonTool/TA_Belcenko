@@ -1,6 +1,6 @@
 package main;
 
-public class CommandMove implements ICommand{
+public class CommandMove implements ICommand {
 
     private String keyword;
     private MyMap map;

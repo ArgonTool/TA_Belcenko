@@ -26,14 +26,17 @@ public class Trap extends Tile{
             case 1 -> {
                 System.out.println("The ground splits underneath you, you fall");
                 player.harm(4);
+                System.out.println("-4HP" );
             }
             case 2 -> {
                 System.out.println("You get splashed by acid from a pipe in the ceiling, you writhe in agony as it eats away at your skin");
                 player.harm(3);
+                System.out.println("-3HP" );
             }
             case 3 -> {
                 System.out.println("You hear a 'thunk' and feel an impact on your neck, you fall unconscious. It seems a rat has deemed to nibble on you while you slept");
                 player.harm(2);
+                System.out.println("-2HP" );
             }
         }
         this.hidden = false;

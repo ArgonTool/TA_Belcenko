@@ -1,6 +1,6 @@
 package main;
 
-public class CommandStats implements ICommand{
+public class CommandStats implements ICommand {
 
     private String keyword;
     private Player player;
