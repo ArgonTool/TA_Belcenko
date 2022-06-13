@@ -15,15 +15,13 @@ public class UI {
     private Game game;
     private MyMap map;
     private Player player;
-    private boolean end;
     private final File saveFile;
 
     /**
      * Constructor
      */
     public UI() {
-        this.end = false;
-        this.saveFile = new File("./src/saved_files/gameSave");
+        this.saveFile = new File("C:/savefiles/save");
     }
 
     /**
@@ -62,18 +60,18 @@ public class UI {
 
         map.render(player);
 
-        while (!end){
+        while (!game.ended()){
             System.out.println("move(up/down/left/right), stats, save, exit");
             String in = read();
             game.handleCommand(in);
             map.getTile(player.getPosX(), player.getPosY()).activate(player);
             if (player.isDead()) {
-                end = true;
+                game.setEnd();
                 dead = true;
                 break;
             } else if (map.getTile(player.getPosX(), player.getPosY()).getTileType() == Tile.Type.EXIT) {
                 success = true;
-                end = true;
+                game.setEnd();
                 break;
             }
         }
@@ -82,7 +80,7 @@ public class UI {
         } else if (success) {
             System.out.println("Congratulations, you've cleared the maze");
         } else {
-            System.out.println("This should be impossible to reach");
+            System.out.println("Goodbye");
         }
     }
 
@@ -98,7 +96,7 @@ public class UI {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Map generation problem, exiting");
-            end = true;
+            game.setEnd();
             return;
         }
         int x=0;
@@ -134,12 +132,14 @@ public class UI {
         ICommand move = new CommandMove(player, map);
         ICommand stats = new CommandStats(player);
         ICommand save = new CommandSave(game, player, map);
-        ICommand exit = new CommandExit();
+        ICommand exit = new CommandExit(game);
+        ICommand cheatMap = new CommandCheatMap(map);
 
         game.addCommand(move);
         game.addCommand(stats);
         game.addCommand(save);
         game.addCommand(exit);
+        game.addCommand(cheatMap);
 
         map.reveal(player);
     }
@@ -159,7 +159,7 @@ public class UI {
             this.game = save.getGame();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            end = true;
+            game.setEnd();
         }
     }
 }

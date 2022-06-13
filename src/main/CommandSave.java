@@ -41,7 +41,7 @@ public class CommandSave implements ICommand {
     @Override
     public void execute(String parameter) {
         try {
-            File f = new File("./src/saved_files/gameSave");
+            File f = new File("C:/savefiles/save");
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(save);

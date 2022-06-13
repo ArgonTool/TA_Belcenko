@@ -8,6 +8,16 @@ package main;
  */
 public class CommandExit implements ICommand {
 
+    private Game game;
+
+    /**
+     * Constructor
+     * @param game game
+     */
+    public CommandExit(Game game) {
+        this.game = game;
+    }
+
     /**
      * Returns keyword to trigger the command
      * @return String "exit"
@@ -23,6 +33,6 @@ public class CommandExit implements ICommand {
      */
     @Override
     public void execute(String parameter) {
-        System.exit(0);
+        game.setEnd();
     }
 }

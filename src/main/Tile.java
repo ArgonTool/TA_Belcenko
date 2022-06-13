@@ -23,7 +23,7 @@ public class Tile implements Serializable {
         BOSS_MONSTER
     }
 
-    private Type tileType;
+    private final Type tileType;
 
     private boolean explored;
 

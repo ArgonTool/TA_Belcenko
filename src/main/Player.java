@@ -25,7 +25,7 @@ public class Player implements Serializable {
         THIEF
     }
 
-    private PClass player_class;
+    private final PClass player_class;
 
     private int hp;
     private int maxHP;

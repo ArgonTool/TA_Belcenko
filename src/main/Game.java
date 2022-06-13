@@ -15,11 +15,14 @@ public class Game implements Serializable {
 
     private final Map<String, ICommand> allCommands;
 
+    private boolean end;
+
     /**
      * Constructor, creates a new HashMap for commands.
      */
     public Game() {
         this.allCommands = new HashMap<>();
+        this.end = false;
     }
 
     /**
@@ -54,4 +57,11 @@ public class Game implements Serializable {
         }
     }
 
+    public boolean ended() {
+        return end;
+    }
+
+    public void setEnd() {
+        this.end = true;
+    }
 }

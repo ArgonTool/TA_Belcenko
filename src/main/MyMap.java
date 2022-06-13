@@ -38,7 +38,7 @@ public class MyMap implements Serializable {
      * @throws Exception if the File does not exist or the file has no entrance or exit
      */
     public void load() throws Exception {
-        File file = new File("C:/TA_Belcenko/out/artifacts/TA_Belcenko_jar/map.txt");
+        File file = new File("C:/savefiles/map.txt");
         Scanner sc = new Scanner(file);
         boolean entrance = false;
         boolean exit = false;
