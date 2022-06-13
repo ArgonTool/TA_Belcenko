@@ -3,27 +3,42 @@ package main;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * Implements Serializable
+ * Class to handle the map of the game
+ * Has a 2d array of Tiles used as a map
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class MyMap implements Serializable {
 
-    private Tile[][] arr;
+    private final Tile[][] arr;
 
     public static final int LENGTH = 32;
     public static final int WIDTH = 24;
 
-    static final String white = "\u2B1C\uFE0E";
-    static final String black = "\u2B1B\uFE0E";
-    static final String red = "\uD83D\uDFE5";
-    static final String blue = "\uD83D\uDFE6";
-    static final String green = "\uD83D\uDFE9";
-    static final String yellow = "\uD83D\uDFE8";
-    static final String brown = "\uD83D\uDFEB";
+    static final String nothing = "o";//"\u2B1C\uFE0E";
+    static final String wall = "w";//"\u2B1B\uFE0E";
+    static final String monster = "m";//"\uD83D\uDFE5";
+    static final String potion = "p";//"\uD83D\uDFE6";
+    static final String player = "x";//"\uD83D\uDFE9";
+    static final String trap = "t";//"\uD83D\uDFE8";
+    static final String exit = "e";//"\uD83D\uDFEB";
 
+    /**
+     * Constructor, creates a new 2d array of Tiles
+     */
     public MyMap() {
         this.arr = new Tile[WIDTH][LENGTH];
     }
 
+    /**
+     * Loads the map from a .txt file.
+     * If no exit or no entrance is found throws new Exception
+     * @throws Exception if the File does not exist or the file has no entrance or exit
+     */
     public void load() throws Exception {
-        File file = new File("./src/saved_files/map.txt");
+        File file = new File("C:/TA_Belcenko/out/artifacts/TA_Belcenko_jar/map.txt");
         Scanner sc = new Scanner(file);
         boolean entrance = false;
         boolean exit = false;
@@ -57,37 +72,42 @@ public class MyMap implements Serializable {
         }
     }
 
+    /**
+     * Renders the map, prints it into terminal.
+     * Hides tiles if they are not marked as discovered or are marked as hidden.
+     * @param player for player location
+     */
     public void render(Player player) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[0].length; j++) {
                 if(i == player.getPosX() && j == player.getPosY()){
-                    builder.append(green);
+                    builder.append(MyMap.player);
                     continue;
                 }
                 if (arr[i][j].hasBeenExplored()) {
                     switch (arr[i][j].getTileType()) {
-                        case WALL -> builder.append(black);
-                        case NOTHING -> builder.append(white);
-                        case POTION -> builder.append(blue);
+                        case WALL -> builder.append(wall);
+                        case NOTHING -> builder.append(nothing);
+                        case POTION -> builder.append(potion);
                         case TRAP -> {
                             if (arr[i][j].isHidden()){
-                                builder.append(white);
+                                builder.append(nothing);
                             } else {
-                                builder.append(yellow);
+                                builder.append(trap);
                             }
                         }
                         case MONSTER, BOSS_MONSTER -> {
                             if (arr[i][j].isHidden()) {
-                                builder.append(white);
+                                builder.append(nothing);
                             } else {
-                                builder.append(red);
+                                builder.append(monster);
                             }
                         }
-                        case ENTRANCE, EXIT -> builder.append(brown);
+                        case ENTRANCE, EXIT -> builder.append(exit);
                     }
                 } else {
-                    builder.append(black);
+                    builder.append(wall);
                 }
             }
             builder.append('\n');
@@ -95,17 +115,20 @@ public class MyMap implements Serializable {
         System.out.println(builder);
     }
 
+    /**
+     * Renders the map as is without obscuring any tiles.
+     */
     public void render(){
         StringBuilder builder = new StringBuilder();
         for (Tile[] tArr : this.arr) {
             for(Tile t : tArr) {
                 switch (t.getTileType()) {
-                    case WALL -> builder.append(black);
-                    case NOTHING -> builder.append(white);
-                    case POTION -> builder.append(blue);
-                    case TRAP -> builder.append(yellow);
-                    case MONSTER, BOSS_MONSTER -> builder.append(red);
-                    case ENTRANCE, EXIT -> builder.append(brown);
+                    case WALL -> builder.append(wall);
+                    case NOTHING -> builder.append(nothing);
+                    case POTION -> builder.append(potion);
+                    case TRAP -> builder.append(trap);
+                    case MONSTER, BOSS_MONSTER -> builder.append(monster);
+                    case ENTRANCE, EXIT -> builder.append(exit);
                 }
             }
             builder.append('\n');
@@ -113,6 +136,10 @@ public class MyMap implements Serializable {
         System.out.println(builder);
     }
 
+    /**
+     * Reveals/Explores tiles based on player location.
+     * @param player for location
+     */
     public void reveal(Player player) {
         int x = player.getPosX();
         int y = player.getPosY();
@@ -128,10 +155,20 @@ public class MyMap implements Serializable {
         }
     }
 
+    /**
+     * Return tiles at coordinates x, y.
+     * @param x coordinate
+     * @param y coordinate
+     * @return tile
+     */
     public Tile getTile(int x, int y) {
         return arr[x][y];
     }
 
+    /**
+     * Returns map dimensions as an int array
+     * @return map dimensions
+     */
     public int[] getDimensions(){
         return new int[]{WIDTH, LENGTH};
     }

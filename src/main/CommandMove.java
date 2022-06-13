@@ -1,23 +1,45 @@
 package main;
 
+/**
+ * Implements ICommand
+ * Class used to move around the map, to change the position of the player later displayed
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class CommandMove implements ICommand {
 
-    private String keyword;
-    private MyMap map;
-    private Player player;
+    private final String keyword;
+    private final MyMap map;
+    private final Player player;
     private static final String OUT_OF_BOUNDS = "Out of Bounds";
 
+    /**
+     * Constructor, keyword is move.
+     * @param player to change player position
+     * @param map to know whether the movement is possible
+     */
     public CommandMove(Player player, MyMap map) {
         this.keyword = "move";
         this.player = player;
         this.map = map;
     }
 
+    /**
+     * Returns keyword needed to activate command.
+     * @return keyword
+     */
     @Override
     public String getKeyword() {
         return keyword;
     }
 
+    /**
+     * Checks for parameter.
+     * Checks input for direction, checks if it is possible to move in that direction, repositions player.
+     * Checks if current position is a wall, returns player back to original position.
+     * Reveals the map around the player.
+     * @param direction parameter indicating movement direction
+     */
     @Override
     public void execute(String direction) {
         if (direction == null) {

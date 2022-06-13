@@ -1,23 +1,41 @@
 package main;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Implements Serializable.
+ * Class to handle incoming commands.
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class Game implements Serializable {
 
-    private Map<String, ICommand> allCommands;
+    private final Map<String, ICommand> allCommands;
 
+    /**
+     * Constructor, creates a new HashMap for commands.
+     */
     public Game() {
         this.allCommands = new HashMap<>();
     }
 
+    /**
+     * Adds a commands to the collective map, key is the keyword returned by the command.
+     * @param command command to be added
+     */
     public void addCommand(ICommand command) {
         allCommands.put(command.getKeyword(), command);
     }
 
+    /**
+     * Handles incoming commands.
+     * Checks if the first part of a received String matches any keywords of current commands.
+     * Checks if any parameters are sent along, if not sends a null value to the commands. This doesn't matter to all commands but move which handles it.
+     * @param s String of text sent from the user
+     */
     public void handleCommand(String s) {
         if (s == null) {
             System.out.println("No command entered");

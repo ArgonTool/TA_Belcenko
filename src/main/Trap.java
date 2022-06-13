@@ -2,6 +2,11 @@ package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Class representing a Trap tile
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class Trap extends Tile{
 
     boolean hidden;

@@ -4,19 +4,32 @@ import java.io.*;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Class representing the user interface.
+ * Runs the game, defines the game loop.
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class UI {
 
     private Game game;
     private MyMap map;
     private Player player;
     private boolean end;
-    private File saveFile;
+    private final File saveFile;
 
+    /**
+     * Constructor
+     */
     public UI() {
         this.end = false;
         this.saveFile = new File("./src/saved_files/gameSave");
     }
 
+    /**
+     * Reads from terminal, returns input
+     * @return String from Scanner of terminal
+     */
     public String read() {
         String out;
         System.out.print("> ");
@@ -25,6 +38,12 @@ public class UI {
         return out;
     }
 
+    /**
+     * This is the main game loop.
+     * Searches for existing save file which can be then loaded, otherwise starts new game.
+     * While boolean end is not true reads input, sends it to the game to handle. Checks for player death or if the player has reached the exit.
+     * Prints end text.
+     */
     public void start(){
         boolean dead = false;
         boolean success = false;
@@ -67,6 +86,11 @@ public class UI {
         }
     }
 
+    /**
+     * Initiates new game.
+     * Searches map for entrance, places the player there.
+     * Scans for input and chooses player class.
+     */
     private void newGame() {
         this.map = new MyMap();
         try {
@@ -120,6 +144,9 @@ public class UI {
         map.reveal(player);
     }
 
+    /**
+     * Loads an old game from a save file, if not ends the game.
+     */
     private void loadGame() {
         try {
             FileInputStream fis = new FileInputStream(saveFile);

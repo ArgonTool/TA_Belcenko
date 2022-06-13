@@ -4,6 +4,11 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Class used to handle battle of players with monsters on monster Tiles.
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class Battle {
 
     /**

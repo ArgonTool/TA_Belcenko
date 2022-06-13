@@ -1,5 +1,11 @@
 package main;
 
+/**
+ * Extends Tile
+ * Class representing a poison Tile
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class Potion extends Tile {
 
     private boolean deactivate;

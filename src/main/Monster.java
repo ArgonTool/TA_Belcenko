@@ -2,6 +2,12 @@ package main;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Extends Tile
+ * Class to handle monster tiles.
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class Monster extends Tile {
 
     /**
@@ -23,7 +29,7 @@ public class Monster extends Tile {
     private int dmg;
 
     /**
-     * Creates a random monster tile from a selection of three monters.
+     * Creates a random monster tile from a selection of three monsters.
      * Assigns HP and DMG accordingly.
      */
     public Monster(MType mtype) {
@@ -84,7 +90,7 @@ public class Monster extends Tile {
     }
 
     /**
-     * Gets the name of this monster based on the mosnter type.
+     * Gets the name of this monster based on the monster type.
      * @return String name of monster
      */
     public String getName() {

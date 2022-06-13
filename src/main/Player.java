@@ -2,6 +2,12 @@ package main;
 
 import java.io.Serializable;
 
+/**
+ * Implements Serializable.
+ * Class representing the player.
+ * @author Alexandr Belcenko (bela08)
+ * @version 1.0
+ */
 public class Player implements Serializable {
 
     /**

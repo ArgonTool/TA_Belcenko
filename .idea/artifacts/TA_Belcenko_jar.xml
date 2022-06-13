@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TA_Belcenko:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TA_Belcenko_jar</output-path>
+    <root id="archive" name="TA_Belcenko.jar">
+      <element id="module-output" name="TA_Belcenko" />
+    </root>
+  </artifact>
+</component>
