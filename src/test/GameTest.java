@@ -1,6 +1,7 @@
 package test;
 
 import logic.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,9 +13,7 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-    private final PrintStream originalErr = System.err;
 
     private Game game;
     private Player player;
@@ -24,7 +23,6 @@ public class GameTest {
     public void setUp() {
 
         System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
 
         this.map = new MyMap();
         map.setTest(true);
@@ -53,6 +51,11 @@ public class GameTest {
         game.addCommand(cheatMap);
 
         map.reveal(player);
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
     }
 
     public void movement(int i, String s) {
