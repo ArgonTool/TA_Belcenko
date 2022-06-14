@@ -37,7 +37,7 @@ public class Monster extends Tile {
         if (mtype == MType.BOSS) {
             this.monster_type = MType.BOSS;
             this.hp = Math.multiplyExact(4, 5);
-            this.dmg = Math.multiplyExact(2, 3);
+            this.dmg = 5;
         } else {
             switch (ThreadLocalRandom.current().nextInt(1, 4)) {
                 case 1 -> {

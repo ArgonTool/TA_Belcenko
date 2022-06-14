@@ -30,7 +30,7 @@ public class Trap extends Tile{
         switch (ThreadLocalRandom.current().nextInt(1,4)) {
             case 1 -> {
                 System.out.println("The ground splits underneath you, you fall");
-                player.harm(4);
+                player.harm(Math.multiplyExact(2, 2));
                 System.out.println("-4HP" );
             }
             case 2 -> {
