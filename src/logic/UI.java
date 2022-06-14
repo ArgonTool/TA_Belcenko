@@ -1,6 +1,9 @@
 package logic;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
@@ -18,8 +21,6 @@ public class UI {
     private Player player;
     private final File saveFile;
 
-    private final boolean test;
-
     /**
      * Normal Constructor
      */
@@ -27,21 +28,6 @@ public class UI {
         this.saveFile = new File("C:/savefiles/save");
         this.game = new Game();
         this.map = new MyMap();
-        test = false;
-    }
-
-    /**
-     * Constructor made for the purposes of testing
-     * @param game game
-     * @param map map
-     * @param player player
-     */
-    public UI( Game game, MyMap map, Player player) {
-        this.game = game;
-        this.player = player;
-        this.map = map;
-        this.saveFile = new File("C:/savefiles/save");
-        test = true;
     }
 
     /**
@@ -63,8 +49,6 @@ public class UI {
      * Prints end text.
      */
     public void start(){
-        boolean dead = false;
-        boolean success = false;
         System.out.println("Welcome to the Maze");
         Date date = new Date();
         System.out.println(date);

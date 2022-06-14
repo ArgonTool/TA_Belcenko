@@ -1,6 +1,7 @@
 package logic;
 
-import java.io.*;
+import java.io.File;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**

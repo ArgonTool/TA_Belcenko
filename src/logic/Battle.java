@@ -78,6 +78,7 @@ public class Battle {
                         System.out.println("Escape unsuccessful");
                     }
                 }
+                default -> System.out.println("Unknown state");
             }
             System.out.println(mname + " attacks for " + tempMonsterDamage + " damage");
             player.harm(tempMonsterDamage);

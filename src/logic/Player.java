@@ -63,6 +63,7 @@ public class Player implements Serializable {
                 this.dmg = 3;
                 this.sight_range = 1;
             }
+            default -> System.out.println("bad class");
         }
         this.hp = this.maxHP;
     }

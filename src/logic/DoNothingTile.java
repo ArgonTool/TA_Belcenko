@@ -21,7 +21,7 @@ public class DoNothingTile extends Tile {
      */
     @Override
     public void activate(Player player) {
-
+        //needed elsewhere
     }
 
     /**
