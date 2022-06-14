@@ -18,7 +18,7 @@ public class MyMap implements Serializable {
 
     public static final int LENGTH = 32;
     public static final int WIDTH = 24;
-
+/*
     static final String nothing = "\u2B1C\uFE0E";
     static final String wall = "\u2B1B\uFE0E";
     static final String monster = "\uD83D\uDFE5";
@@ -26,16 +26,16 @@ public class MyMap implements Serializable {
     static final String player = "\uD83D\uDFE9";
     static final String trap = "\uD83D\uDFE8";
     static final String exit = "\uD83D\uDFEB";
+*/
 
-    /*
     static final String nothing = "o";
-    static final String wall = "w";;
-    static final String monster = "m";;
+    static final String wall = " ";
+    static final String monster = "m";
     static final String potion = "p";
-    static final String player = "x";
+    static final String player = "V";
     static final String trap = "t";
     static final String exit = "e";
-    */
+
 
     private final int[] entranceCoordinates;
 
