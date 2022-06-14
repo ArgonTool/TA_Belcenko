@@ -141,6 +141,16 @@ public class GameTest {
         assertFalse(trap.isHidden());
     }
 
+    @Test
+    public void monsterTest() {
+        Monster monster = new Monster(Monster.MType.BLANK);
+        Battle battle = new Battle();
+        battle.setTest(true);
+        assertFalse(monster.isDead());
+        battle.battle(player, monster, false);
+        assertTrue(monster.isDead());
+        assertTrue(player.getHp() < player.getMaxHp());
+    }
 
     @Test
     public void noKeyTest() {

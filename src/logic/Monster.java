@@ -13,7 +13,7 @@ public class Monster extends Tile {
     /**
      * Monster types
      */
-    enum MType {
+    public enum MType {
         BLANK,
         SLIME,
         SPIDER,
