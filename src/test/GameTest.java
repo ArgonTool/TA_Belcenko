@@ -79,13 +79,15 @@ public class GameTest {
         movement(5, "up");
         movement(5, "right");
         movement(2, "up");
-        movement(1, "left");
+        movement(10, "right");
+        movement(11, "left");
         movement(1, "up");
         movement(2, "left");
         movement(1, "up");
         movement(1, "left");
         movement(2, "up");
-        movement(7, "right");
+        movement(3, "right");
+        movement(4, "right");
         movement(7, "up");
         movement(1, "right");
         movement(1, "up");

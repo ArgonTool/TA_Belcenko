@@ -1,7 +1,6 @@
 package logic;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Class intended to store data necessary to save the game
@@ -11,7 +10,6 @@ public class Save implements Serializable {
     private Game game;
     private Player player;
     private MyMap map;
-    private Date date;
 
     /**
      * Constructor
@@ -23,7 +21,6 @@ public class Save implements Serializable {
         this.game = game;
         this.player = player;
         this.map = map;
-        this.date = new Date();
     }
 
     /**
@@ -48,13 +45,5 @@ public class Save implements Serializable {
      */
     public MyMap getMap() {
         return map;
-    }
-
-    /**
-     * Getter for date
-     * @return date
-     */
-    public Date getDate() {
-        return date;
     }
 }

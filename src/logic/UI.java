@@ -1,7 +1,6 @@
 package logic;
 
 import java.io.*;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -66,8 +65,6 @@ public class UI {
         boolean dead = false;
         boolean success = false;
         System.out.println("Welcome to the Maze");
-        Date date = new Date();
-        System.out.println(date);
         if (saveFile.exists()) {
             System.out.println("NEW  |  LOAD");
             while (true) {
@@ -180,7 +177,6 @@ public class UI {
             Save save = (Save) ois.readObject();
             ois.close();
             fis.close();
-            System.out.println("Loaded save from: " + save.getDate());
             this.map = save.getMap();
             this.player = save.getPlayer();
             this.game = save.getGame();
