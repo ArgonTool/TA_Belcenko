@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.io.Serializable;
 
@@ -7,12 +7,17 @@ import java.io.Serializable;
  * @author Alexandr Belcenko (bela08)
  * @version 1.0
  */
-public class Tile implements Serializable {
+public abstract class Tile implements Serializable {
+
+    /**
+     * Boolean for testing purposes
+     */
+    boolean test;
 
     /**
      * Types of tiles
      */
-    enum Type{
+    public enum Type{
         TRAP,
         POTION,
         ENTRANCE,
@@ -28,7 +33,7 @@ public class Tile implements Serializable {
     private boolean explored;
 
     /**
-     * Cosntructor
+     * Constructor
      * @param tileType type of tile
      */
     public Tile(Type tileType) {
@@ -40,15 +45,13 @@ public class Tile implements Serializable {
      * Activates a tile, used in children
      * @param player player
      */
-    public void activate(Player player) {}
+    public abstract void activate(Player player);
 
     /**
      * Return whether the tile is hidden, used in children
      * @return false
      */
-    public boolean isHidden() {
-        return false;
-    }
+    public abstract boolean isHidden();
 
     /**
      * Getter for tileType.
@@ -71,5 +74,13 @@ public class Tile implements Serializable {
      */
     public void explore() {
         this.explored = true;
+    }
+
+    /**
+     * Setter for test boolean.
+     * @param test value
+     */
+    public void setTest(boolean test) {
+        this.test = test;
     }
 }

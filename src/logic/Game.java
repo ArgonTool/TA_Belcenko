@@ -1,9 +1,10 @@
-package main;
+package logic;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Implements Serializable.
@@ -16,6 +17,7 @@ public class Game implements Serializable {
     private final Map<String, ICommand> allCommands;
 
     private boolean end;
+    private boolean success;
 
     /**
      * Constructor, creates a new HashMap for commands.
@@ -23,6 +25,7 @@ public class Game implements Serializable {
     public Game() {
         this.allCommands = new HashMap<>();
         this.end = false;
+        this.success = false;
     }
 
     /**
@@ -40,7 +43,7 @@ public class Game implements Serializable {
      * @param s String of text sent from the user
      */
     public void handleCommand(String s) {
-        if (s == null) {
+        if (s.equals("")) {
             System.out.println("No command entered");
             return;
         }
@@ -63,5 +66,13 @@ public class Game implements Serializable {
 
     public void setEnd() {
         this.end = true;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess() {
+        this.success = true;
     }
 }

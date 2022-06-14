@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.io.*;
 import java.util.Scanner;
@@ -14,27 +14,43 @@ public class MyMap implements Serializable {
 
     private final Tile[][] arr;
 
+    private boolean test;
+
     public static final int LENGTH = 32;
     public static final int WIDTH = 24;
 
-    static final String nothing = "o";//"\u2B1C\uFE0E";
-    static final String wall = "w";//"\u2B1B\uFE0E";
-    static final String monster = "m";//"\uD83D\uDFE5";
-    static final String potion = "p";//"\uD83D\uDFE6";
-    static final String player = "x";//"\uD83D\uDFE9";
-    static final String trap = "t";//"\uD83D\uDFE8";
-    static final String exit = "e";//"\uD83D\uDFEB";
+    static final String nothing = "\u2B1C\uFE0E";
+    static final String wall = "\u2B1B\uFE0E";
+    static final String monster = "\uD83D\uDFE5";
+    static final String potion = "\uD83D\uDFE6";
+    static final String player = "\uD83D\uDFE9";
+    static final String trap = "\uD83D\uDFE8";
+    static final String exit = "\uD83D\uDFEB";
+
+    /*
+    static final String nothing = "o";
+    static final String wall = "w";;
+    static final String monster = "m";;
+    static final String potion = "p";
+    static final String player = "x";
+    static final String trap = "t";
+    static final String exit = "e";
+    */
+
+    private final int[] entranceCoordinates;
 
     /**
      * Constructor, creates a new 2d array of Tiles
      */
     public MyMap() {
         this.arr = new Tile[WIDTH][LENGTH];
+        this.entranceCoordinates = new int[2];
     }
 
     /**
      * Loads the map from a .txt file.
-     * If no exit or no entrance is found throws new Exception
+     * If no exit or no entrance is found throws new Exception.
+     * Logs the coordinates of the entrance.
      * @throws Exception if the File does not exist or the file has no entrance or exit
      */
     public void load() throws Exception {
@@ -47,20 +63,32 @@ public class MyMap implements Serializable {
             char[] chars = sc.nextLine().toCharArray();
             for (int j = 0; j < chars.length; j++) {
                 switch (chars[j] - 48){
-                    case 0 -> arr[i][j] = new Tile(Tile.Type.WALL);
-                    case 1 -> arr[i][j] = new Tile(Tile.Type.NOTHING);
+                    case 0 -> arr[i][j] = new DoNothingTile(Tile.Type.WALL);
+                    case 1 -> arr[i][j] = new DoNothingTile(Tile.Type.NOTHING);
                     case 2 -> arr[i][j] = new Potion();
                     case 3 -> arr[i][j] = new Trap();
-                    case 4 -> arr[i][j] = new Monster(Monster.MType.BLANK);
+                    case 4 -> {
+                        arr[i][j] = new Monster(Monster.MType.BLANK);
+                        if (test) {
+                            arr[i][j].setTest(true);
+                        }
+                    }
                     case 5 -> {
-                        arr[i][j] = new Tile(Tile.Type.EXIT);
+                        arr[i][j] = new DoNothingTile(Tile.Type.EXIT);
                         exit = true;
                     }
                     case 6 -> {
-                        arr[i][j] = new Tile(Tile.Type.ENTRANCE);
+                        arr[i][j] = new DoNothingTile(Tile.Type.ENTRANCE);
+                        entranceCoordinates[0] = i;
+                        entranceCoordinates[1] = j;
                         entrance = true;
                     }
-                    case 7 -> arr[i][j] = new Monster(Monster.MType.BOSS);
+                    case 7 -> {
+                        arr[i][j] = new Monster(Monster.MType.BOSS);
+                        if (test) {
+                            arr[i][j].setTest(true);
+                        }
+                    }
                     default -> throw new Exception("Problem with map file, found char:" + chars[j]);
                 }
             }
@@ -173,5 +201,19 @@ public class MyMap implements Serializable {
         return new int[]{WIDTH, LENGTH};
     }
 
+    /**
+     * Returns entrance coordinates
+     * @return entranceCoordinates
+     */
+    public int[] getEntrance() {
+        return entranceCoordinates;
+    }
 
+    /**
+     * Sets test boolean
+     * @param test value of boolean
+     */
+    public void setTest(boolean test) {
+        this.test = test;
+    }
 }

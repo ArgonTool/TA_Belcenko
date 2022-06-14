@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.io.Serializable;
 
@@ -19,7 +19,7 @@ public class Player implements Serializable {
     /**
      * Possible player classes.
      */
-    enum PClass {
+    public enum PClass {
         WARRIOR,
         ARCHER,
         THIEF

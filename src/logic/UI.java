@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.io.*;
 import java.util.Locale;
@@ -17,11 +17,30 @@ public class UI {
     private Player player;
     private final File saveFile;
 
+    private final boolean test;
+
     /**
-     * Constructor
+     * Normal Constructor
      */
     public UI() {
         this.saveFile = new File("C:/savefiles/save");
+        this.game = new Game();
+        this.map = new MyMap();
+        test = false;
+    }
+
+    /**
+     * Constructor made for the purposes of testing
+     * @param game game
+     * @param map map
+     * @param player player
+     */
+    public UI( Game game, MyMap map, Player player) {
+        this.game = game;
+        this.player = player;
+        this.map = map;
+        this.saveFile = new File("C:/savefiles/save");
+        test = true;
     }
 
     /**
@@ -39,7 +58,7 @@ public class UI {
     /**
      * This is the main game loop.
      * Searches for existing save file which can be then loaded, otherwise starts new game.
-     * While boolean end is not true reads input, sends it to the game to handle. Checks for player death or if the player has reached the exit.
+     * Starts basic game loop.
      * Prints end text.
      */
     public void start(){
@@ -48,11 +67,17 @@ public class UI {
         System.out.println("Welcome to the Maze");
         if (saveFile.exists()) {
             System.out.println("NEW  |  LOAD");
-            String s = read();
-            if(s.toLowerCase(Locale.ENGLISH).equals("load")) {
-                loadGame();
-            } else {
-                newGame();
+            while (true) {
+                String s = read();
+                if (s.matches("(?i)^load$")) {
+                    loadGame();
+                    break;
+                } else if (s.matches("(?i)^new$")) {
+                    newGame();
+                    break;
+                } else {
+                    System.out.println("Wrong input");
+                }
             }
         } else {
             newGame();
@@ -60,24 +85,11 @@ public class UI {
 
         map.render(player);
 
-        while (!game.ended()){
-            System.out.println("move(up/down/left/right), stats, save, exit");
-            String in = read();
-            game.handleCommand(in);
-            map.getTile(player.getPosX(), player.getPosY()).activate(player);
-            if (player.isDead()) {
-                game.setEnd();
-                dead = true;
-                break;
-            } else if (map.getTile(player.getPosX(), player.getPosY()).getTileType() == Tile.Type.EXIT) {
-                success = true;
-                game.setEnd();
-                break;
-            }
-        }
-        if (dead) {
+        gameLoop();
+
+        if (player.isDead()) {
             System.out.println("You have died");
-        } else if (success) {
+        } else if (game.isSuccess()) {
             System.out.println("Congratulations, you've cleared the maze");
         } else {
             System.out.println("Goodbye");
@@ -85,12 +97,33 @@ public class UI {
     }
 
     /**
+     * Basic game loop.
+     * Prompts for input, sends to handler, executes.
+     * Checks if the player is dead, checks if the player has reached the exit
+     */
+    public void gameLoop() {
+        while (!game.ended()){
+            System.out.println("move(up/down/left/right), stats, save, exit");
+            String in = read();
+            game.handleCommand(in);
+            map.getTile(player.getPosX(), player.getPosY()).activate(player);
+            if (player.isDead()) {
+                game.setEnd();
+                break;
+            } else if (map.getTile(player.getPosX(), player.getPosY()).getTileType() == Tile.Type.EXIT) {
+                game.setSuccess();
+                game.setEnd();
+                break;
+            }
+        }
+    }
+
+    /**
      * Initiates new game.
-     * Searches map for entrance, places the player there.
+     * Gets map entrance, places the player there.
      * Scans for input and chooses player class.
      */
     private void newGame() {
-        this.map = new MyMap();
         try {
             map.load();
         } catch (Exception e) {
@@ -99,35 +132,25 @@ public class UI {
             game.setEnd();
             return;
         }
-        int x=0;
-        int y=0;
-        for (int i = 0; i < map.getDimensions()[0]; i++) {
-            for (int j = 0; j < map.getDimensions()[1]; j++) {
-                if (map.getTile(i, j).getTileType() == Tile.Type.ENTRANCE) {
-                    x = i;
-                    y = j;
-                }
-            }
-        }
+        int[] coords = map.getEntrance();
+
         System.out.println("Select your class\nWARRIOR | ARCHER | THIEF");
         class_select: while (true) {
             String s = read();
             switch (s.toLowerCase(Locale.ENGLISH)) {
                 case "warrior":
-                    this.player = new Player(Player.PClass.WARRIOR, x, y);
+                    this.player = new Player(Player.PClass.WARRIOR, coords[0], coords[1]);
                     break class_select;
                 case "archer":
-                    this.player = new Player(Player.PClass.ARCHER, x, y);
+                    this.player = new Player(Player.PClass.ARCHER, coords[0], coords[1]);
                     break class_select;
                 case "thief":
-                    this.player = new Player(Player.PClass.THIEF, x, y);
+                    this.player = new Player(Player.PClass.THIEF, coords[0], coords[1]);
                     break class_select;
                 default:
                     System.out.println("Wrong input");
             }
         }
-
-        this.game = new Game();
 
         ICommand move = new CommandMove(player, map);
         ICommand stats = new CommandStats(player);

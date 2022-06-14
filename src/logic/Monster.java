@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -73,6 +73,9 @@ public class Monster extends Tile {
             return;
         }
         Battle b = new Battle();
+        if (test) {
+            b.setTest(true);
+        }
         b.battle(player, this, hidden);
         this.hidden = true;
     }
@@ -80,10 +83,15 @@ public class Monster extends Tile {
     /**
      * Makes the tile visible on the game map.
      * Player has a 1/5 chance to discover the monster every time they move within sight range.
+     * Unless it is a boss, which is always visible
      */
     @Override
     public void explore() {
         super.explore();
+        if (monster_type == MType.BOSS) {
+            this.hidden = false;
+            return;
+        }
         if (ThreadLocalRandom.current().nextInt(1, 6)  == 5) {
             this.hidden = false;
         }
@@ -99,6 +107,7 @@ public class Monster extends Tile {
             case SLIME -> out = "Slime";
             case SPIDER -> out = "Spider";
             case GOBLIN -> out = "Goblin";
+            case BOSS -> out = "Boss";
         }
         return out;
     }

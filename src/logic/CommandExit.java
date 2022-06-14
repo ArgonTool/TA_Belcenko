@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 /**
  * Implements ICommand
@@ -8,7 +8,7 @@ package main;
  */
 public class CommandExit implements ICommand {
 
-    private Game game;
+    private final Game game;
 
     /**
      * Constructor

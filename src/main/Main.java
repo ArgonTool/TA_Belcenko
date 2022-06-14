@@ -1,5 +1,7 @@
 package main;
 
+import logic.UI;
+
 /**
  * Main class, starts the game.
  * @author Alexandr Belcenko (bela08)

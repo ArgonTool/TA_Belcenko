@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -10,6 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * @version 1.0
  */
 public class Battle {
+
+    private boolean test;
 
     /**
      * List of commands recognized in battle.
@@ -86,10 +88,13 @@ public class Battle {
     }
 
     /**
-     * Reads user input and checks for 3 words.
+     * Reads user input and checks for 3 words. In case of test outputs only attack.
      * @return enum of type Command according to the command given
      */
     public Command read() {
+        if (test) {
+            return Command.ATTACK;
+        }
         Command out;
         scanner: while (true) {
             System.out.print("> ");
@@ -110,5 +115,13 @@ public class Battle {
             }
         }
         return out;
+    }
+
+    /**
+     * Sets test
+     * @param test value of boolean
+     */
+    public void setTest(boolean test) {
+        this.test = test;
     }
 }

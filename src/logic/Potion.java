@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 /**
  * Extends Tile
@@ -32,4 +32,10 @@ public class Potion extends Tile {
         System.out.println("You've found a potion. After you drink it you feel revitalised\nHP " + player.getHp() + "/" + player.getMaxHp());
         deactivate = true;
     }
+
+    @Override
+    public boolean isHidden() {
+        return false;
+    }
+
 }

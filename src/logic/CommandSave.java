@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,5 +51,9 @@ public class CommandSave implements ICommand {
             System.out.println("Problem while saving");
             e.printStackTrace();
         }
+    }
+
+    public Save getSave() {
+        return save;
     }
 }
