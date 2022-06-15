@@ -3,6 +3,8 @@ Textová adventura
 Jednoduchá hra s textovým rozhraním. Cílem je dostat se z bludiště. Bludiště je zobrazováno v cmd.
 
 Autor: Alexandr Belčenko
+Předmět: 4IT101
+Cvičení po 18:00
 
 Verze 1.0
 

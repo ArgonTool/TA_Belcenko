@@ -2,7 +2,7 @@ package logic;
 
 /**
  * Implements ICommand
- * Class is a command to exit the program
+ * Class is a command to exit the game
  * @author Alexandr Belcenko (bela08)
  * @version 1.0
  */

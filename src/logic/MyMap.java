@@ -28,6 +28,7 @@ public class MyMap implements Serializable {
     static final String trap = "\uD83D\uDFE8";
     static final String exit = "\uD83D\uDFEB";
 /*
+    //Needed for when using a command line
     static final String nothing = "o";
     static final String wall = " ";
     static final String monster = "m";

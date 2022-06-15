@@ -114,7 +114,27 @@ public class GameTest {
         assertEquals(x, player.getPosX());
         assertEquals(y, player.getPosY());
     }
-    
+
+    @Test
+    public void badMoveTest() {
+        int x = player.getPosX();
+        int y = player.getPosY();
+        game.handleCommand("move right");
+        assertEquals(x, player.getPosX());
+        assertEquals(y, player.getPosY());
+        assertEquals("Walked into wall\r\n", outContent.toString());
+    }
+
+    @Test
+    public void outOfBoundsTest() {
+        int x = player.getPosX();
+        int y = player.getPosY();
+        game.handleCommand("move down");
+        assertEquals(x, player.getPosX());
+        assertEquals(y, player.getPosY());
+        assertEquals("Out of Bounds\r\n", outContent.toString());
+    }
+
     @Test
     public void exitTest() {
         game.handleCommand("exit");

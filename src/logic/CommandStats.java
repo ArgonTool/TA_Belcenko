@@ -36,6 +36,5 @@ public class CommandStats implements ICommand {
     @Override
     public void execute(String parameter) {
         System.out.println("HP: " + player.getHp() + '/' + player.getMaxHp() + " DMG: " + player.getDmg());
-
     }
 }

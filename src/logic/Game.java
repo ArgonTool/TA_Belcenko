@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Implements Serializable.
  * Class to handle incoming commands.
- * @author Alexandr Belcenko (bela08)
+ * @author Alexandr Belcenko (bela08), based on Hra by Michael Kolling, Lubos Pavlicek and Jarmila Pavlickova
  * @version 1.0
  */
 public class Game implements Serializable {
@@ -59,18 +59,32 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Returns end condition.
+     * @return boolean ended
+     */
     public boolean ended() {
         return end;
     }
 
+    /**
+     * Sets end condition.
+     */
     public void setEnd() {
         this.end = true;
     }
 
+    /**
+     * Returns success condition
+     * @return boolean success
+     */
     public boolean isSuccess() {
         return success;
     }
 
+    /**
+     * Sets success condition.
+     */
     public void setSuccess() {
         this.success = true;
     }

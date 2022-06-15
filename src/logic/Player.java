@@ -35,7 +35,7 @@ public class Player implements Serializable {
     private boolean dead;
 
     /**
-     * Contructor
+     * Constructor
      * Sets parameters depending on chosen player class.
      * Sets starter coordinates.
      * @param player_class chosen class
@@ -93,7 +93,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * Decreaes the player HP by the amount given.
+     * Decreases the player HP by the amount given.
      * @param damage amount of damage taken by the player.
      */
     public void harm(int damage) {
@@ -119,7 +119,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * Retuns the value of current damage output.
+     * Returns the value of current damage output.
      * @return int damage
      */
     public int getDmg() {

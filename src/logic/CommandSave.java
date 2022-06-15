@@ -1,9 +1,6 @@
 package logic;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * Implements ICommand
@@ -47,13 +44,12 @@ public class CommandSave implements ICommand {
             oos.writeObject(save);
             oos.close();
             fos.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No map save found");
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Problem while saving");
             e.printStackTrace();
         }
-    }
 
-    public Save getSave() {
-        return save;
     }
 }

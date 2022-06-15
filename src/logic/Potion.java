@@ -33,6 +33,10 @@ public class Potion extends Tile {
         deactivate = true;
     }
 
+    /**
+     * Returns false, needed for other tiles.
+     * @return false
+     */
     @Override
     public boolean isHidden() {
         return false;
